@@ -66,35 +66,8 @@ public class ClientSocket {
     }
 
     public String createContract(Contract contract) {
-        Response response = ClientSocket.getInstance().getResponse(new Request("Create contract", contract));
+        Response response = ClientSocket.getInstance().getResponse(new Request("Add new contract", contract));
         return (String) response.getRespBody();
-    }
-
-    public String createTariff(Tariff tariff) {
-        Response response = ClientSocket.getInstance().getResponse(new Request("Create tariff", tariff));
-        return (String) response.getRespBody();
-    }
-
-    public String createTariffOption(TariffOption tariffOption) {
-        Response response = ClientSocket.getInstance().getResponse(new Request("Create tariffOption", tariffOption));
-        String result = "Success!";
-        if (response.getIsProblem()) {
-            result = response.getTitle();
-        }
-        return result;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Tariff> getAllTariff() {      // release
-        Response response = ClientSocket.getInstance().getResponse(new Request("Get all Tariff"));
-
-        List<Tariff> resultList = null;
-        if (!response.getIsProblem()) {
-            resultList = (List<Tariff>) response.getRespBody();
-        } else {
-            // TODO error
-        }
-        return resultList;
     }
 
     public boolean checkLoginAvailable(Employee e) {        // release
@@ -102,57 +75,84 @@ public class ClientSocket {
         Response response = ClientSocket.getInstance().getResponse(new Request("Check authorization", e));
         return (Boolean) response.getRespBody();
     }
-
-    public Response selectTariff(long contractId, Client client) {
-
-        return ClientSocket.getInstance().getResponse(new Request(("Select tariff"), new SampleObject<Long, Client>(contractId, client)));
-    }
-
-    public Response selectTariffOption(long contractId, Tariff tariff) {
-
-        return ClientSocket.getInstance().getResponse(new Request(("Select tariffOption"), new SampleObject<Long, Tariff>(contractId, tariff)));
-    }
-
-    public Tariff getTariffByName(String name) {
-        Response response = ClientSocket.getInstance().getResponse(new Request("Get tarif by name", name));
-
-        Tariff resultStation = null;
-        if (!response.getIsProblem()) {
-            resultStation = (Tariff) response.getRespBody();
-        } else {
-            // TODO error
-        }
-        return resultStation;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<TariffOption> getAllTariffOption() {
-        Response response = ClientSocket.getInstance().getResponse(new Request("Get all Tariff Option"));
-
-        List<TariffOption> resultList = null;
-        if (!response.getIsProblem()) {
-            resultList = (List<TariffOption>) response.getRespBody();
-        } else {
-            // TODO error
-        }
-        return resultList;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Client> getAllClients() {
-        Response response = ClientSocket.getInstance().getResponse(new Request("Get all clients"));
-
-        List<Client> resultList = null;
-        if (!response.getIsProblem()) {
-            resultList = (List<Client>) response.getRespBody();
-        } else {
-            // TODO error
-        }
-        return resultList;
-    }
-
-    public Contract getContractByNumber(Long number) {
-        Response response = ClientSocket.getInstance().getResponse(new Request("Get contract by number", number));
-        return (Contract) response.getRespBody();
-    }
+//
+//    public String createTariff(Tariff tariff) {
+//        Response response = ClientSocket.getInstance().getResponse(new Request("Create tariff", tariff));
+//        return (String) response.getRespBody();
+//    }
+//
+//    public String createTariffOption(TariffOption tariffOption) {
+//        Response response = ClientSocket.getInstance().getResponse(new Request("Create tariffOption", tariffOption));
+//        String result = "Success!";
+//        if (response.getIsProblem()) {
+//            result = response.getTitle();
+//        }
+//        return result;
+//    }
+//
+//    @SuppressWarnings("unchecked")
+//    public List<Tariff> getAllTariff() {      // release
+//        Response response = ClientSocket.getInstance().getResponse(new Request("Get all Tariff"));
+//
+//        List<Tariff> resultList = null;
+//        if (!response.getIsProblem()) {
+//            resultList = (List<Tariff>) response.getRespBody();
+//        } else {
+//            // TODO error
+//        }
+//        return resultList;
+//    }
+//
+//    public Response selectTariff(long contractId, Client client) {
+//
+//        return ClientSocket.getInstance().getResponse(new Request(("Select tariff"), new SampleObject<Long, Client>(contractId, client)));
+//    }
+//
+//    public Response selectTariffOption(long contractId, Tariff tariff) {
+//
+//        return ClientSocket.getInstance().getResponse(new Request(("Select tariffOption"), new SampleObject<Long, Tariff>(contractId, tariff)));
+//    }
+//
+//    public Tariff getTariffByName(String name) {
+//        Response response = ClientSocket.getInstance().getResponse(new Request("Get tarif by name", name));
+//
+//        Tariff resultStation = null;
+//        if (!response.getIsProblem()) {
+//            resultStation = (Tariff) response.getRespBody();
+//        } else {
+//            // TODO error
+//        }
+//        return resultStation;
+//    }
+//
+//    @SuppressWarnings("unchecked")
+//    public List<TariffOption> getAllTariffOption() {
+//        Response response = ClientSocket.getInstance().getResponse(new Request("Get all Tariff Option"));
+//
+//        List<TariffOption> resultList = null;
+//        if (!response.getIsProblem()) {
+//            resultList = (List<TariffOption>) response.getRespBody();
+//        } else {
+//            // TODO error
+//        }
+//        return resultList;
+//    }
+//
+//    @SuppressWarnings("unchecked")
+//    public List<Client> getAllClients() {
+//        Response response = ClientSocket.getInstance().getResponse(new Request("Get all clients lst"));
+//
+//        List<Client> resultList = null;
+//        if (!response.getIsProblem()) {
+//            resultList = (List<Client>) response.getRespBody();
+//        } else {
+//            // TODO error
+//        }
+//        return resultList;
+//    }
+//
+//    public Contract getContractByNumber(Long number) {
+//        Response response = ClientSocket.getInstance().getResponse(new Request("Get contract by number", number));
+//        return (Contract) response.getRespBody();
+//    }
 }

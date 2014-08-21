@@ -10,7 +10,7 @@ public class Contract implements Serializable {
     private static final long serialVersionUID = 582020387629534654L;
     @Id
     @GeneratedValue
-    private long contractId;
+    private int contractId;
     @Column(unique = true, nullable = false)
     private String number;
     @OneToOne
@@ -26,14 +26,14 @@ public class Contract implements Serializable {
     /**
      * @return the contractId
      */
-    public long getContractId() {
+    public int getContractId() {
         return contractId;
     }
 
     /**
      * @param contractId the contractId to set
      */
-    public void setContractId(long contractId) {
+    public void setContractId(int contractId) {
         this.contractId = contractId;
     }
 

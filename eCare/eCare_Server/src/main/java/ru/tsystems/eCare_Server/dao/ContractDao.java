@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Implements working with database.
  */
-public class ContractDao extends GenericDaoHiberImpl<Contract, Long> {
+public class ContractDao extends GenericDaoHiberImpl<Contract, Integer> {
 
     public ContractDao() {
         super(Contract.class);

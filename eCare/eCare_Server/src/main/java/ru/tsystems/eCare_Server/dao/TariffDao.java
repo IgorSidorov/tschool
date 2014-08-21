@@ -22,7 +22,9 @@ public class TariffDao extends GenericDaoHiberImpl<Tariff, Long> {
 
     }
 
-    public void buyTariff(Client cl, Contract con) {
+    public void buyTariff(Contract con) {
+        
+        
     }
 
     public void deleteTariff (Tariff tariff) throws SQLException {
@@ -32,6 +34,7 @@ public class TariffDao extends GenericDaoHiberImpl<Tariff, Long> {
     }
     
     public void setAvailableTariffOptions () {
+        
         
     }
 }

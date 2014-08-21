@@ -59,13 +59,13 @@ public class SocketHandler implements Runnable {
         Response response = new Response("No task");
         String requestTitle = request.getTitle();
 
-//        if (requestTitle.equals("...................")) {
-//            response = new Response((Serializable) emplService.get.....);
-//        } else if (requestTitle.equals(".....................")) {
-//            response = new Response((Serializable) emplService.get.....);
-//        } else if (requestTitle.equals("Check authorization")) {
-//            response = new Response(emplService.checkExist((EmployeeData) request.getReqBody()));
-//        } 
+        if (requestTitle.equals("Check authorization")) {
+            response = new Response((Serializable) emplService.checkExist((Employee) request.getReqBody()));
+        } else if (requestTitle.equals("Add new contract")) {
+            response = new Response((Serializable) emplService.createContract((Contract)request.getReqBody()));
+        } else if (requestTitle.equals("Get all contracts")) {
+            response = new Response((Serializable) emplService.getContractList());
+        } 
         return response;
     }
 }

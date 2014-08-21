@@ -9,7 +9,7 @@ public class TariffOption implements Serializable {
     private static final long serialVersionUID = 582203876239534654L;
     @Id
     @GeneratedValue
-    private long tariffOptionId;
+    private int tariffOptionId;
     @Column(unique = true)
     private String name;
     @Column
@@ -21,14 +21,14 @@ public class TariffOption implements Serializable {
      * @return the tariffOptionId
      */
     
-    public long getTariffOptionId() {
+    public int getTariffOptionId() {
         return tariffOptionId;
     }
 
     /**
      * @param tariffOptionId the tariffOptionId to set
      */
-    public void setTariffOptionId(long tariffOptionId) {
+    public void setTariffOptionId(int tariffOptionId) {
         this.tariffOptionId = tariffOptionId;
     }
 

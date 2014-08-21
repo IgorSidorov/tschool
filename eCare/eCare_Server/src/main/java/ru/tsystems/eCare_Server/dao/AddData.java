@@ -1,16 +1,20 @@
 package ru.tsystems.eCare_Server.dao;
 
-import ru.tsystems.eCare_Common.entities.*;
-
+import java.sql.SQLException;
+import java.util.*;
+import java.util.Arrays;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.RollbackException;
-import java.sql.SQLException;
-import java.text.ParseException;
+import org.apache.log4j.Logger;
+import ru.tsystems.eCare_Common.entities.*;
 
 public class AddData {
 
-    public static void main(String[] args) throws SQLException, ParseException {
+    private static final Logger logger = Logger.getLogger(AddData.class);
+
+    public static void main(String[] args) throws SQLException {
+
         EntityManager em = EmfInit.getEm();
         EntityTransaction transact = em.getTransaction();
         EmployeeDao ed = new EmployeeDao();
@@ -19,30 +23,60 @@ public class AddData {
         TariffDao td = new TariffDao();
         TarriffOptionDao tod = new TarriffOptionDao();
 
-
-        try {
+        try {            
+//            for (int i = 0; i < 6; i++) {
             transact.begin();
 
-            TariffOption to = new TariffOption();
-            to.setTariffOptionId(1);
-            to.setName("skazka");
-            to.setPrice(3);
-            to.setConnectionCost(50);
+                TariffOption to = new TariffOption();
+                to.setName("zero");
+                to.setPrice(50);
+                to.setConnectionCost(50);
 
-//            Employee emp = new Employee();
-            Employee emp1 = new Employee("qwerty", "1234");
+                Tariff tariff = new Tariff();
+                tariff.setName("dialog1");
+                tariff.setPrice(20);
+                TariffOption[] arrOption = new TariffOption[]{tod.findByPK(1)};
+                List<TariffOption> optionList = Arrays.asList(arrOption);
+                tariff.setTariffOption(optionList);
 
-            try {
+                Contract contract = new Contract();
+                contract.setNumber("+7921512165");
+                contract.setTariff(tariff);
+                contract.setTariffOption(optionList);
+                contract.setActive(true);
+                contract.setBlockedEmployee(true);
 
-                ed.create(emp1);
-                tod.update(to);
+                Client client = new Client();
+                client.setFirstName("Ivan1");
+                client.setLastName("Ivanov");
+                client.setBirthDate(new Date(87, 10, 8));
+                client.setEmail("qwerty@list.ru");
+                client.setPassportData("1908 956677");
+                Contract[] arrContract = new Contract[]{ctrd.findByPK(1), ctrd.findByPK(2)};
+                List<Contract> contractList = Arrays.asList(arrContract);
+                client.setContractList(contractList);
 
-            } catch (SQLException ex) {
-//             logger.error("Error while creating a dao", e);
-                ex.printStackTrace();
-            }
+                Employee emp = new Employee();
+     
+                emp.setLogin("admin1");
+                emp.setPassword("123456");
 
-            transact.commit();
+                try {
+
+                    tod.create(to);
+                    td.create(tariff);
+                    ctrd.create(contract);
+                    cd.create(client);
+                    ed.create(emp);
+
+                } catch (SQLException ex) {
+                    logger.error("Error while creating a dao", ex);
+                    ex.printStackTrace();
+                }
+
+                transact.commit();
+//}
+//            }
 
         } catch (RollbackException exc) {
             System.out.println("There is some error" + exc.toString());

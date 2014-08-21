@@ -5,12 +5,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import javax.persistence.GeneratedValue;
 
 @Entity
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 5820203876295346584L;
     @Id
+    @GeneratedValue
     private long adminId;
     @Column(unique = true, nullable = false)
     private String login;
@@ -45,5 +47,19 @@ public class Employee implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the adminId
+     */
+    public long getAdminId() {
+        return adminId;
+    }
+
+    /**
+     * @param adminId the adminId to set
+     */
+    public void setAdminId(long adminId) {
+        this.adminId = adminId;
     }
 }

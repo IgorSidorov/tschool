@@ -13,6 +13,7 @@ import java.util.List;
 public class EmployeeService {
 
     private static final Logger logger = Logger.getLogger(EmployeeService.class);
+    private String result = "Success";
     private EmployeeDao employeeDao = new EmployeeDao();
     private ContractDao contractDao = new ContractDao();
     private ClientDao clientDao = new ClientDao();
@@ -33,11 +34,9 @@ public class EmployeeService {
                 && employeeDao.getAuthorizeData().containsValue(ed.getPassword());
     }
 
-
     public String createContract(Contract contract) {
         EntityManager em = EmfInit.getEm();
         EntityTransaction transact = em.getTransaction();
-        String result = "Success";
         try {
             transact.begin();
             try {
@@ -70,7 +69,7 @@ public class EmployeeService {
         }
     }
 
-    public List<Client> findClientByName(String contract) {
+    public List<Client> findClientByContract(String contract) {
         try {
             return clientDao.findByContract(contract);
         } catch (Exception e) {
@@ -80,30 +79,145 @@ public class EmployeeService {
         }
     }
 
-    public void changeContract(Contract c) {
+    public String changeContract(Contract contract) {
+        EntityManager em = EmfInit.getEm();
+        EntityTransaction transact = em.getTransaction();
+        try {
+            transact.begin();
+            try {
+                contractDao.update(contract);
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                return e.getMessage();
+            }
+
+            transact.commit();
+            return result;
+
+        } catch (RollbackException e) {
+            logger.error(e.getMessage());
+            if (transact.isActive()) {
+                transact.rollback();
+            }
+            return e.getMessage();
+        }
     }
 
-    public void createTariff() {
+    public String createTariff(Tariff tariff) {
+        EntityManager em = EmfInit.getEm();
+        EntityTransaction transact = em.getTransaction();
+        try {
+            transact.begin();
+            try {
+                tariffDao.create(tariff);
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                return e.getMessage();
+            }
+
+            transact.commit();
+            return result;
+
+        } catch (RollbackException e) {
+            logger.error(e.getMessage());
+            if (transact.isActive()) {
+                transact.rollback();
+            }
+            return e.getMessage();
+        }
     }
 
-    public void createTariffOption() {
+    public String createTariffOption(TariffOption tariffOption) {
+        EntityManager em = EmfInit.getEm();
+        EntityTransaction transact = em.getTransaction();
+        try {
+            transact.begin();
+            try {
+                tariffOptionDao.create(tariffOption);
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                return e.getMessage();
+            }
+
+            transact.commit();
+            return result;
+
+        } catch (RollbackException e) {
+            logger.error(e.getMessage());
+            if (transact.isActive()) {
+                transact.rollback();
+            }
+            return e.getMessage();
+        }
     }
 
-    public void blockedContract() {
+    public String deleteTariff(Tariff tariff) {
+
+        EntityManager em = EmfInit.getEm();
+        EntityTransaction transact = em.getTransaction();
+        try {
+            transact.begin();
+            try {
+                tariffDao.delete(tariff);
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                return e.getMessage();
+            }
+
+            transact.commit();
+            return result;
+
+        } catch (RollbackException e) {
+            logger.error(e.getMessage());
+            if (transact.isActive()) {
+                transact.rollback();
+            }
+            return e.getMessage();
+        }
     }
 
-    public void addTariff() {
+    public String deleteTariffOption(TariffOption tariffOption) {
+
+        EntityManager em = EmfInit.getEm();
+        EntityTransaction transact = em.getTransaction();
+        try {
+            transact.begin();
+            try {
+                tariffOptionDao.delete(tariffOption);
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                return e.getMessage();
+            }
+
+            transact.commit();
+            return result;
+
+        } catch (RollbackException e) {
+            logger.error(e.getMessage());
+            if (transact.isActive()) {
+                transact.rollback();
+            }
+            return e.getMessage();
+        }
     }
 
-    public void addTariffOption() {
+    public List<Tariff> findAllTariff() {
+        try {
+            return tariffDao.findAll();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void deleteTariff() {
+public void addRule(List<TariffOption> tariffOptions) {
+        try {
+            tariffOptionDao.addRule();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
     }
-
-    public void findAllTariff() {
-    }
-
-    public void addRule() {
-    }
+    
 }
