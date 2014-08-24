@@ -2,6 +2,7 @@ package ru.tsystems.eCare_Common.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class TariffOption implements Serializable {
@@ -10,12 +11,14 @@ public class TariffOption implements Serializable {
     @Id
     @GeneratedValue
     private int tariffOptionId;
-    @Column(unique = true)
+    @Column
     private String name;
     @Column
     private int price;
     @Column
     private int connectionCost;
+    @ManyToMany(mappedBy = "tariffOption")
+    private List <Contract> contract;
 
     /**
      * @return the tariffOptionId
@@ -72,6 +75,20 @@ public class TariffOption implements Serializable {
      */
     public void setConnectionCost(int connectionCost) {
         this.connectionCost = connectionCost;
+    }
+
+    /**
+     * @return the contract
+     */
+    public List <Contract> getContract() {
+        return contract;
+    }
+
+    /**
+     * @param contract the contract to set
+     */
+    public void setContract(List <Contract> contract) {
+        this.contract = contract;
     }
     
 }

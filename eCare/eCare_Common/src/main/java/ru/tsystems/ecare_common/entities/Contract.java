@@ -11,18 +11,24 @@ public class Contract implements Serializable {
     @Id
     @GeneratedValue
     private int contractId;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String number;
     @OneToOne
     private Tariff tariff;
-    @OneToMany
-    private List <TariffOption> tariffOption;
+    @ManyToMany(cascade = {CascadeType.ALL})
+//    @JoinTable(name = "service", joinColumns = {
+//        @JoinColumn(name = "STUDENTID")},
+//            inverseJoinColumns = {
+//        @JoinColumn(name = "LECTIONID")})
+    private List<TariffOption> tariffOption;
     @Column(nullable = false)
     private boolean active;
     @Column(nullable = false)
     private boolean blockedEmployee;
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    private Client client;
 
-    
     /**
      * @return the contractId
      */
@@ -78,28 +84,28 @@ public class Contract implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
-    
-            @Override
+
+    @Override
     public String toString() {
-        return "Contract{" +
-                ", number=" + getNumber()+
-                " tariff"+getTariff() +
-                "tariff options{ "+ getTariffOption()+
-                " active="+isActive()+
-                '}';
+        return "Contract{"
+                + ", number=" + getNumber()
+                + " tariff" + getTariff()
+                + "tariff options{ " + getTariffOption()
+                + " active=" + isActive()
+                + '}';
     }
 
     /**
      * @return the tariffOption
      */
-    public List <TariffOption> getTariffOption() {
+    public List<TariffOption> getTariffOption() {
         return tariffOption;
     }
 
     /**
      * @param tariffOption the tariffOption to set
      */
-    public void setTariffOption(List <TariffOption> tariffOption) {
+    public void setTariffOption(List<TariffOption> tariffOption) {
         this.tariffOption = tariffOption;
     }
 
@@ -115,5 +121,19 @@ public class Contract implements Serializable {
      */
     public void setBlockedEmployee(boolean blockedEmployee) {
         this.blockedEmployee = blockedEmployee;
+    }
+
+    /**
+     * @return the client
+     */
+    public Client getClient() {
+        return client;
+    }
+
+    /**
+     * @param client the client to set
+     */
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

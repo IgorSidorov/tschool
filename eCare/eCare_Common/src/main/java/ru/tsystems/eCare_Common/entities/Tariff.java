@@ -11,11 +11,11 @@ public class Tariff implements Serializable {
     @Id
     @GeneratedValue
     private long tariffId;
-    @Column(unique = true)
+    @Column
     private String name;
     @Column
     private int price;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TariffOption> tariffOption;
 
     /**

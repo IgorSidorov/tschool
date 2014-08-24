@@ -14,7 +14,7 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue
     private long adminId;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String login;
     @Column(nullable = false)
     private String password;

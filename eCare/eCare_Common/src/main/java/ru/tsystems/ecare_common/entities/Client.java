@@ -20,8 +20,8 @@ public class Client implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
     @Column(nullable = false)
-    private String passportData;
-    @OneToMany
+    private String passportData;   
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "client")
     private List<Contract> contractList;
     @Column
     private String email;
